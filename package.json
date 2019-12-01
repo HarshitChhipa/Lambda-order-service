@@ -1,0 +1,24 @@
+{
+  "name": "order",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "serverless-iam-roles-per-function": "^2.0.2",
+    "serverless-plugin-warmup": "^4.7.1-rc.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhikur/lambda-order-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhikur/lambda-order-service/issues"
+  },
+  "homepage": "https://github.com/abhikur/lambda-order-service#readme"
+}

@@ -1,0 +1,47 @@
+service: order-service
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-plugin-warmup
+
+custom:
+  apiVersion: v1
+
+provider:
+  name: aws
+  runtime: java8
+  region: us-east-1
+
+package:
+  artifact: build/libs/order-0.1.jar
+
+functions:
+  create-order:
+    handler: order.StreamLambdaHandler
+    iamRoleStatementsName: order-service-dev-create-order-role
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+          - dynamodb:GetItem
+        Resource:
+          - arn:aws:dynamodb:us-east-1:*:*
+    events:
+      - http:
+          path: /${self:custom.apiVersion}/{proxy+}
+          method: any
+
+
+resources:
+  Resources:
+    orders:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: orders
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
